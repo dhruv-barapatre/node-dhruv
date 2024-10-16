@@ -2,72 +2,70 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 
 <body>
-    <!-- <form onSubmit={handleSubmit}>
-        <div>
-            <label>Name:</label>
-            <input type="text" value={name} onChange={(e)=> setName(e.target.value)} required />
-        </div>
-        <div>
-            <label>Email:</label>
-            <input type="email" value={email} onChange={(e)=> setEmail(e.target.value)} required />
-        </div>
-        <div>
-            <label>Phone Number:</label>
-            <input type="text" value={phoneNumber} onChange={(e)=> setPhoneNumber(e.target.value)} />
-        </div>
-        <div>
-            <label>Address:</label>
-            <input type="text" value={address} onChange={(e)=> setAddress(e.target.value)} />
-        </div>
-        <div>
-            <label>Date of Birth:</label>
-            <input type="date" value={dob} onChange={(e)=> setDob(e.target.value)} />
-        </div>
-        <button type="submit">Submit</button>
-    </form> -->
+  <form>
+    <div>
+      <label>Name:</label>
+      <input type="text" required />
+    </div>
+    <div>
+      <label>Email:</label>
+      <input type="email" required />
+    </div>
+    <div>
+      <label>Phone Number:</label>
+      <input type="text" />
+    </div>
+    <div>
+      <label>Address:</label>
+      <input type="text" />
+    </div>
+    <div>
+      <label>Date of Birth:</label>
+      <input type="date" />
+    </div>
+    <button type="submit">Submit</button>
+  </form>
 
-    <!-- <table></table> -->
+  <table></table>
 
-    
-    <!-- <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>Address</th>
-            <th>Date of Birth</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.length > 0 ? (
-            users.map(user => (
-              <tr key={user.id}>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.phoneNumber}</td>
-                <td>{user.address}</td>
-                <td>{user.dob}</td>
-                <td>
-                  <button>Edit</button>
-                  <button style={{ marginLeft: "10px" }} onClick={() => deletedata(user.id)}>Delete</button>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="5">No data found</td>
-            </tr>
-          )}
-        </tbody>
-      </table> -->
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th>Address</th>
+        <th>Date of Birth</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr >
+        <td>{user.name}</td>
+        <td>{user.email}</td>
+        <td>{user.phoneNumber}</td>
+        <td>{user.address}</td>
+        <td>{user.dob}</td>
+        <td>
+          <button>Edit</button>
+          <button>Delete</button>
+        </td>
+      </tr>
+      
+      <tr>
+        <td colSpan="5">No data found</td>
+      </tr>
+
+    </tbody>
+  </table>
 </body>
 
 </html>
