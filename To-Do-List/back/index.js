@@ -29,8 +29,16 @@ app.post("/addUser", (req, res) => {
         if (err) {
             res.send(err)
         } else {
-            
-            res.send("ok")
+            const jsonData = JSON.parse(data)
+            jsonData.user.push(req.body)
+            const pushData = JSON.stringify(jsonData)
+            fs.writeFile("./db.json",pushData,(err)=> {
+                if(err){
+                    res.send(err)
+                }else{
+                    res.send("Data Set SuccesFully")
+                }
+            })
         }
     })
 
