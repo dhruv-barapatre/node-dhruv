@@ -1,23 +1,39 @@
 const express = require("express")
-const fs=require("fs")
+const fs = require("fs")
 const app = express()
+const cors = require("cors")
 
 // server
-app.use((req, res, next) => {
-    next()
-})
+app.use(cors());
+app.use(express.json());
 
+app.get("/", (req, res) => {
+    res.send("ok")
+})
 app.get("/getdata", (req, res) => {
-    fs.readFile("./db.json","utf-8",(err,data)=>{
-        if(err){
+    fs.readFile("./db.json", "utf-8", (err, data) => {
+        if (err) {
             console.log(err)
-            res.send("something went wrong")
-        }else{
-            const newdata=JSON.parse(data)
-            console.log(newdata)
-            res.end(newdata)
+            res.send(err)
+        } else {
+            const { user } = JSON.parse(data)
+            console.log(user)
+            const jsondata = JSON.stringify(user)
+            res.send(jsondata)
         }
     })
+})
+
+app.post("/addUser", (req, res) => {
+    fs.readFile("./db.json", "utf-8", (err, data) => {
+        if (err) {
+            res.send(err)
+        } else {
+            
+            res.send("ok")
+        }
+    })
+
 })
 
 app.listen(8000, () => {
