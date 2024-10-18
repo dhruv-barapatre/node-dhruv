@@ -1,10 +1,20 @@
 {
     "user": [
         {
-            "name": "Dhruv",
-            "email": "bara@gmail.com",
-            "phone": "8780813308",
-            "city": "surat"
+            "name": "dhruv",
+            "id": "h37ggdhm3wl56jeq99wl"
+        },
+        {
+            "name": "monish",
+            "id": "n7z1rwzvhpukzgdbc0v0"
+        },
+        {
+            "name": "papa",
+            "id": "n7z1razvhzukzgdbc0v0"
+        },
+        {
+            "name": "dhruv2",
+            "id": "75vax7ejylgnyej8aa5h"
         }
     ]
 }
