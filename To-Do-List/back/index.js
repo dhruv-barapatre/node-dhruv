@@ -14,29 +14,27 @@ app.get("/getdata", (req, res) => {
             console.log(err)
             res.send(err)
         } else {
-            const { user } = JSON.parse(data)
-            console.log(data)
-            const jsondata = JSON.stringify(user)
+            const jsondata = JSON.parse(data)
             res.send(jsondata)
         }
     })
 })
 
 app.post("/addUser", (req, res) => {
-    fs.readFile("./db.json", "utf-8", (er5r, data) => {
+    fs.readFile("./db.json", "utf-8", (err, data) => {
         if (err) {
             res.send(err)
         } else {
             const jsonData = JSON.parse(data)
             const id = generateUniqueId()
             req.body.id = id
-            jsonData.user.push(req.body)
+            jsonData.push(req.body)
             const pushData = JSON.stringify(jsonData)
             fs.writeFile("./db.json", pushData, (err) => {
                 if (err) {
                     res.send(err)
                 } else {
-                    res.send("Data Set SuccesFully")
+                    res.send("User Added SuccesFully")
                 }
             })
         }
@@ -51,14 +49,14 @@ app.delete("/deleteUser/:id", (req, res) => {
             console.log(err)
             res.send(err)
         } else {
-            const { user } = JSON.parse(data)
-            let deletdUser = user.filter((el) => el.id != id)
+            const jsonData = JSON.parse(data)
+            let deletdUser = jsonData.filter((el) => el.id != id)
             const pushData = JSON.stringify(deletdUser)
             fs.writeFile("./db.json", pushData, (err) => {
                 if (err) {
                     res.send(err)
                 } else {
-                    res.send("Data Set SuccesFully")
+                    res.send("User Deleted SuccesFully")
                 }
             })
         }
@@ -71,23 +69,22 @@ app.put("/editUser/:id", (req, res) => [
             console.log(err)
             res.send(err)
         } else {
-            let { user } = JSON.parse(data)
+            let jsonData = JSON.parse(data)
             const { id } = req.params
-            const index = user.findIndex((el) => el.id == id)
+            const index = jsonData.findIndex((el) => el.id == id)
             if (index == -1) {
                 res.send("User Not Found")
             } else {
-                user[index] = req.body
-                user[index].id=id
-                const pushData = JSON.stringify(user)
+                jsonData[index] = req.body
+                jsonData[index].id = id
+                const pushData = JSON.stringify(jsonData)
                 fs.writeFile("./db.json", pushData, (err) => {
                     if (err) {
                         res.send(err)
                     } else {
-                        res.send("Data Set SuccesFully")
+                        res.send("User Data Edited SuccesFully")
                     }
                 })
-                res.send("ok")
             }
         }
     })
