@@ -11,14 +11,13 @@ app.get("/getdata", (req, res) => {
     fs.readFile("./db.json","utf-8",(err,data)=>{
         if(err){
             console.log(err)
+            res.send("something went wrong")
         }else{
-            const newdata=JSON.stringify(data)
-            console.log(data)
-            console.log(JSON.stringify(JSON.parse(data), null, 2));
-
+            const newdata=JSON.parse(data)
+            console.log(newdata)
+            res.end(newdata)
         }
     })
-    res.end("ok")
 })
 
 app.listen(8000, () => {
