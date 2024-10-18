@@ -3,7 +3,14 @@ import React, { useEffect, useState } from 'react';
 
 const From = () => {
     const [data, setData] = useState([]);
-    const [edit, setedit] = useState(false)
+    const [editId, setEditId] = useState(null);
+    const [editFormData, setEditFormData] = useState({
+        name: '',
+        email: '',
+        number: '',
+        add: ''
+    });
+
     const fetchData = () => {
         axios.get("http://localhost:8000/getdata")
             .then(response => {
@@ -17,7 +24,7 @@ const From = () => {
         name: '',
         email: '',
         number: '',
-        add: '' // Changed 'address' to 'add'
+        add: ''
     });
 
     const handleInputChange = (e) => {
@@ -28,20 +35,58 @@ const From = () => {
         });
     };
 
+    const handleEditInputChange = (e) => {
+        const { name, value } = e.target;
+        setEditFormData({
+            ...editFormData,
+            [name]: value
+        });
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.post('http://localhost:8000/addUser', formData)
             .then(response => {
                 console.log("User added:", response.data);
-                fetchData(); // Refresh the table data
+                fetchData();
                 setFormData({
                     name: '',
                     email: '',
                     number: '',
-                    add: '' // Reset 'add'
+                    add: ''
                 });
             })
             .catch(error => console.log("Error adding user:", error));
+    };
+
+    const handleEditSubmit = (id) => {
+        axios.put(`http://localhost:8000/editUser/${id}`, editFormData)
+            .then(response => {
+                console.log("User updated:", response.data);
+                fetchData();
+                setEditId(null); // Exit edit mode
+            })
+            .catch(error => console.log("Error updating user:", error));
+    };
+
+    const handleEditClick = (el) => {
+        setEditId(el.id);
+        setEditFormData({
+            name: el.name,
+            email: el.email,
+            number: el.number,
+            add: el.add
+        });
+    };
+
+    const handleCancelEdit = () => {
+        setEditId(null);
+        setEditFormData({
+            name: '',
+            email: '',
+            number: '',
+            add: ''
+        });
     };
 
     const deleteUser = (id) => {
@@ -49,7 +94,7 @@ const From = () => {
             .then(() => {
                 console.log(`User with id ${id} deleted`);
                 alert("Data Deleted successfully");
-                fetchData(); // Refresh the table data
+                fetchData();
             })
             .catch(error => console.log('Error deleting user:', error));
     };
@@ -96,7 +141,7 @@ const From = () => {
                     <label>Address:</label>
                     <input
                         type="text"
-                        name="add" // Changed 'address' to 'add'
+                        name="add"
                         value={formData.add}
                         onChange={handleInputChange}
                     />
@@ -121,14 +166,58 @@ const From = () => {
                         {data.length > 0 ? (
                             data.map((el) => (
                                 <tr key={el.id}>
-                                    <td>{edit ? <input type="text" /> : el.name}</td>
-                                    <td>{edit ? <input type="text" /> : el.email}</td>
-                                    <td>{edit ? <input type="text" /> : el.number}</td>
-                                    <td>{edit ? <input type="text" /> : el.add}</td> {/* Changed 'address' to 'add' */}
+                                    <td>
+                                        {editId === el.id ? (
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                value={editFormData.name}
+                                                onChange={handleEditInputChange}
+                                            />
+                                        ) : (
+                                            el.name
+                                        )}
+                                    </td>
+                                    <td>
+                                        {editId === el.id ? (
+                                            <input
+                                                type="email"
+                                                name="email"
+                                                value={editFormData.email}
+                                                onChange={handleEditInputChange}
+                                            />
+                                        ) : (
+                                            el.email
+                                        )}
+                                    </td>
+                                    <td>
+                                        {editId === el.id ? (
+                                            <input
+                                                type="text"
+                                                name="number"
+                                                value={editFormData.number}
+                                                onChange={handleEditInputChange}
+                                            />
+                                        ) : (
+                                            el.number
+                                        )}
+                                    </td>
+                                    <td>
+                                        {editId === el.id ? (
+                                            <input
+                                                type="text"
+                                                name="add"
+                                                value={editFormData.add}
+                                                onChange={handleEditInputChange}
+                                            />
+                                        ) : (
+                                            el.add
+                                        )}
+                                    </td>
                                     <td>
                                         {editId === el.id ? (
                                             <>
-                                                <button type="button" onClick={handleSubmit}>Save</button>
+                                                <button type="button" onClick={() => handleEditSubmit(el.id)}>Save</button>
                                                 <button type="button" onClick={handleCancelEdit} style={{ marginLeft: "10px" }}>Cancel</button>
                                             </>
                                         ) : (
