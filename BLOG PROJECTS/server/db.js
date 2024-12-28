@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const connection = mongoose.connect("mongodb+srv://dhruvbarapatre:bd280126@dhruv2801.ramia.mongodb.net/?retryWrites=true&w=majority&appName=dhruv2801")
+const connection = mongoose.connect("mongodb://127.0.0.1:27017/blog-pro")
 module.exports = connection
 
 
