@@ -5,7 +5,7 @@ const From = () => {
     const [data, setData] = useState([]);
     const [editId, setEditId] = useState(null);
     const [editFormData, setEditFormData] = useState({
-        name: '',
+        name: '' ,
         email: '',
         number: '',
         add: ''
