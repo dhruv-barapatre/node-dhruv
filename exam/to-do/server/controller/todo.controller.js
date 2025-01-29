@@ -2,7 +2,7 @@ const todoModel = require("../model/todo.model")
 
 const create = async (req, res) => {
     const { title } = req.body
-    if (!req.body) {
+    if (!title) {
         return res.status(400).json({ message: "Please fill all fields" })
     }
     try {
